@@ -20,6 +20,7 @@
         public DateTime? ReturnDate { get; private set; }
         
         public string ProcessBookReturn() {
+            ReturnDate = DateTime.Now;
             if (ReturnDate > DeadlineDate)
                 return $"O livro está atrasado";
             else

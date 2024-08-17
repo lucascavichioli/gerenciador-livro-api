@@ -3,6 +3,7 @@ using GerenciadorLivro.API.Models;
 using GerenciadorLivro.API.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace GerenciadorLivro.API.Controllers
 {
@@ -31,6 +32,10 @@ namespace GerenciadorLivro.API.Controllers
         public IActionResult GetAll() 
         { 
             var users = _context.Users.ToList();
+            
+            if (users is null)
+                return NotFound();
+            
             return Ok(users);
         }
 
