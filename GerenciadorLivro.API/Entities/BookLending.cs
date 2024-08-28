@@ -11,6 +11,7 @@
             ReturnDate = null;
         }
 
+        public int Id { get; set; }
         public int IdUser { get; private set; }
         public User User { get; private set; }
         public int IdBook { get; private set; }

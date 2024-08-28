@@ -1,6 +1,5 @@
 ﻿using GerenciadorLivro.API.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 
 namespace GerenciadorLivro.API.Persistence
 {
@@ -39,7 +38,7 @@ namespace GerenciadorLivro.API.Persistence
 
             builder.Entity<BookLending>(e =>
             {
-                e.HasKey(bl => new { bl.IdUser, bl.IdBook });
+                e.HasKey(bl => bl.Id);
 
                 e.HasOne(u => u.User)
                     .WithMany(b => b.Lendings)
