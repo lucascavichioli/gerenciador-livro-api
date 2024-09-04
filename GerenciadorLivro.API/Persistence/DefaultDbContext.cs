@@ -20,9 +20,9 @@ namespace GerenciadorLivro.API.Persistence
             {
                 e.HasKey(u => u.Id);
     
-                e.HasMany(bl => bl.Lendings)
-                    .WithOne(u => u.User)
-                    .HasForeignKey(u => u.IdUser)
+                e.HasMany(u => u.Lendings)
+                    .WithOne(bl => bl.User)
+                    .HasForeignKey(bl => bl.IdUser)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -30,23 +30,15 @@ namespace GerenciadorLivro.API.Persistence
             {
                 e.HasKey(b => b.Id);
 
-                e.HasMany(bl => bl.Lendings)
-                    .WithOne(b => b.Book)
-                    .HasForeignKey(b => b.IdBook)
+                e.HasMany(b => b.Lendings)
+                    .WithOne(bl => bl.Book)
+                    .HasForeignKey(bl => bl.IdBook)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
             builder.Entity<BookLending>(e =>
             {
                 e.HasKey(bl => bl.Id);
-
-                e.HasOne(u => u.User)
-                    .WithMany(b => b.Lendings)
-                    .HasForeignKey(u => u.IdUser);
-
-                e.HasOne(b => b.Book)
-                    .WithMany(b => b.Lendings)
-                    .HasForeignKey(b => b.IdBook);
             });
 
             //base.OnModelCreating(builder);

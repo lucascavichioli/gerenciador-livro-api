@@ -2,6 +2,7 @@
 using GerenciadorLivro.API.Models;
 using GerenciadorLivro.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -47,7 +48,20 @@ namespace GerenciadorLivro.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var bookLendings = _context.BookLendings.ToList();
+            var bookLendings = _context.BookLendings
+                                    .Include(bl => bl.Book)
+                                    .Include(bl => bl.User)
+                                    .Select(b => 
+                                                new {
+                                                    b.Id,
+                                                    b.Book,
+                                                    b.User,
+                                                    b.LendingDate,
+                                                    b.DeadlineDate,
+                                                    b.ReturnDate
+                                                }
+                                    )
+                                .ToList();
 
             if (bookLendings is null)
                 return NotFound();

@@ -15,7 +15,6 @@
         public string Autor { get; private set; }
         public string ISBN { get; private set; }
         public int YearPublication { get; private set; }
-
         public List<BookLending> Lendings { get; private set; }
     }
 }
